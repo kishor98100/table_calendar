@@ -85,7 +85,7 @@ class _TableMultiExampleState extends State<TableMultiExample> {
                 });
               }
             },
-            onPageChanged: (focusedDay) {
+            onPageChanged: (focusedDay, dateRange) {
               _focusedDay = focusedDay;
             },
           ),

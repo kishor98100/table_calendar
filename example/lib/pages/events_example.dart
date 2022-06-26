@@ -114,7 +114,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                 });
               }
             },
-            onPageChanged: (focusedDay) {
+            onPageChanged: (focusedDay, dateRange) {
               _focusedDay = focusedDay;
             },
           ),

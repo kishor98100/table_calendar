@@ -26,7 +26,7 @@ Widget setupTestWidget(Widget child) {
 Widget createTableCalendar({
   DateTime? focusedDay,
   CalendarFormat calendarFormat = CalendarFormat.month,
-  Function(DateTime)? onPageChanged,
+  Function(DateTime, DateTimeRange)? onPageChanged,
   bool sixWeekMonthsEnforced = false,
 }) {
   return setupTestWidget(
@@ -82,7 +82,7 @@ void main() {
         await tester.pumpWidget(
           createTableCalendar(
             calendarFormat: CalendarFormat.week,
-            onPageChanged: (focusedDay) {
+            onPageChanged: (focusedDay, dateRange) {
               updatedFocusedDay = focusedDay;
             },
           ),
@@ -125,7 +125,7 @@ void main() {
         await tester.pumpWidget(
           createTableCalendar(
             calendarFormat: CalendarFormat.week,
-            onPageChanged: (focusedDay) {
+            onPageChanged: (focusedDay, dateRange) {
               updatedFocusedDay = focusedDay;
             },
           ),
@@ -168,7 +168,7 @@ void main() {
         await tester.pumpWidget(
           createTableCalendar(
             calendarFormat: CalendarFormat.twoWeeks,
-            onPageChanged: (focusedDay) {
+            onPageChanged: (focusedDay, dateRange) {
               updatedFocusedDay = focusedDay;
             },
           ),
@@ -211,7 +211,7 @@ void main() {
         await tester.pumpWidget(
           createTableCalendar(
             calendarFormat: CalendarFormat.twoWeeks,
-            onPageChanged: (focusedDay) {
+            onPageChanged: (focusedDay, dateRange) {
               updatedFocusedDay = focusedDay;
             },
           ),
@@ -331,7 +331,7 @@ void main() {
 
         await tester.pumpWidget(
           createTableCalendar(
-            onPageChanged: (focusedDay) {
+            onPageChanged: (focusedDay, dateRange) {
               updatedFocusedDay = focusedDay;
             },
           ),
@@ -378,7 +378,7 @@ void main() {
 
         await tester.pumpWidget(
           createTableCalendar(
-            onPageChanged: (focusedDay) {
+            onPageChanged: (focusedDay, dateRange) {
               updatedFocusedDay = focusedDay;
             },
           ),

@@ -319,7 +319,7 @@ void main() {
             onCalendarCreated: (pageController) {
               calendarCreatedFlag = true;
             },
-            onPageChanged: (focusedDay2) {
+            onPageChanged: (focusedDay2, dateRange) {
               focusedDay = focusedDay2;
             },
             onVerticalSwipe: (direction) {

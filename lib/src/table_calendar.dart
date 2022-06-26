@@ -3,6 +3,7 @@
 
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
@@ -193,7 +194,8 @@ class TableCalendar<T> extends StatefulWidget {
   final void Function(DateTime focusedDay)? onHeaderLongPressed;
 
   /// Called whenever currently visible calendar page is changed.
-  final void Function(DateTime focusedDay)? onPageChanged;
+  final void Function(DateTime focusedDay, DateTimeRange dateRange)?
+      onPageChanged;
 
   /// Called whenever `calendarFormat` is changed.
   final void Function(CalendarFormat format)? onFormatChanged;
@@ -500,9 +502,9 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
             simpleSwipeConfig: widget.simpleSwipeConfig,
             sixWeekMonthsEnforced: widget.sixWeekMonthsEnforced,
             onVerticalSwipe: _swipeCalendarFormat,
-            onPageChanged: (focusedDay) {
+            onPageChanged: (focusedDay, DateTimeRange dateRange) {
               _focusedDay.value = focusedDay;
-              widget.onPageChanged?.call(focusedDay);
+              widget.onPageChanged?.call(focusedDay, dateRange);
             },
             dowBuilder: (BuildContext context, DateTime day) {
               Widget? dowCell =
@@ -515,7 +517,6 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
 
                 final isWeekend =
                     _isWeekend(day, weekendDays: widget.weekendDays);
-
                 dowCell = Center(
                   child: ExcludeSemantics(
                     child: Text(

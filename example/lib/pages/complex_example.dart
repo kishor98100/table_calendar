@@ -153,7 +153,8 @@ class _TableComplexExampleState extends State<TableComplexExample> {
             onDaySelected: _onDaySelected,
             onRangeSelected: _onRangeSelected,
             onCalendarCreated: (controller) => _pageController = controller,
-            onPageChanged: (focusedDay) => _focusedDay.value = focusedDay,
+            onPageChanged: (focusedDay, dateRange) =>
+                _focusedDay.value = focusedDay,
             onFormatChanged: (format) {
               if (_calendarFormat != format) {
                 setState(() => _calendarFormat = format);

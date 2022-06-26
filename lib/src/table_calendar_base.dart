@@ -31,7 +31,8 @@ class TableCalendarBase extends StatefulWidget {
   final SimpleSwipeConfig simpleSwipeConfig;
   final Map<CalendarFormat, String> availableCalendarFormats;
   final SwipeCallback? onVerticalSwipe;
-  final void Function(DateTime focusedDay)? onPageChanged;
+  final void Function(DateTime focusedDay, DateTimeRange dateRange)?
+      onPageChanged;
   final void Function(PageController pageController)? onCalendarCreated;
 
   TableCalendarBase({
@@ -218,7 +219,7 @@ class _TableCalendarBaseState extends State<TableCalendarBase> {
               dowDecoration: widget.dowDecoration,
               rowDecoration: widget.rowDecoration,
               tableBorder: widget.tableBorder,
-              onPageChanged: (index, focusedMonth) {
+              onPageChanged: (index, focusedMonth, dateRange) {
                 if (!_pageCallbackDisabled) {
                   if (!isSameDay(_focusedDay, focusedMonth)) {
                     _focusedDay = focusedMonth;
@@ -233,9 +234,8 @@ class _TableCalendarBaseState extends State<TableCalendarBase> {
                     );
                     _pageHeight.value = _getPageHeight(rowCount);
                   }
-
                   _previousIndex = index;
-                  widget.onPageChanged?.call(focusedMonth);
+                  widget.onPageChanged?.call(focusedMonth, dateRange);
                 }
 
                 _pageCallbackDisabled = false;

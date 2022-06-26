@@ -52,7 +52,7 @@ class _TableBasicsExampleState extends State<TableBasicsExample> {
             });
           }
         },
-        onPageChanged: (focusedDay) {
+        onPageChanged: (focusedDay, dateRange) {
           // No need to call `setState()` here
           _focusedDay = focusedDay;
         },

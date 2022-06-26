@@ -7,7 +7,7 @@ import '../shared/utils.dart';
 import 'calendar_page.dart';
 
 typedef _OnCalendarPageChanged = void Function(
-    int pageIndex, DateTime focusedDay);
+    int pageIndex, DateTime focusedDay, DateTimeRange dateRange);
 
 class CalendarCore extends StatelessWidget {
   final DateTime? focusedDay;
@@ -109,7 +109,23 @@ class CalendarCore extends StatelessWidget {
           baseDay = _getFocusedDay(calendarFormat, previousFocusedDay, index);
         }
 
-        return onPageChanged(index, baseDay);
+        final range = _getVisibleRange(calendarFormat, baseDay);
+        var visibleDays = _daysInRange(range.start, range.end);
+        var dateRange =
+            DateTimeRange(start: visibleDays.first, end: visibleDays.last);
+
+        if (calendarFormat == CalendarFormat.month) {
+          visibleDays = visibleDays
+              .where((element) => element.month == baseDay.month)
+              .toList();
+          dateRange =
+              DateTimeRange(start: visibleDays.first, end: visibleDays.last);
+        } else {
+          dateRange = DateTimeRange(
+              start: visibleDays.first,
+              end: visibleDays.last.subtract(Duration(days: 1)));
+        }
+        return onPageChanged(index, baseDay, dateRange);
       },
     );
   }
