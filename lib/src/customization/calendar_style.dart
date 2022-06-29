@@ -139,6 +139,12 @@ class CalendarStyle {
   /// Decoration for day cells that do not match any other styles.
   final Decoration defaultDecoration;
 
+  /// TextStyle for day cells that do not match any other styles.
+  final TextStyle eventTextStyle;
+
+  /// Decoration for day cells that do not match any other styles.
+  final Decoration eventDecoration;
+
   /// Decoration for each interior row of day cells.
   final Decoration rowDecoration;
 
@@ -215,7 +221,9 @@ class CalendarStyle {
     this.weekendTextStyle = const TextStyle(color: const Color(0xFF5A5A5A)),
     this.weekendDecoration = const BoxDecoration(shape: BoxShape.circle),
     this.defaultTextStyle = const TextStyle(),
+    this.eventTextStyle = const TextStyle(),
     this.defaultDecoration = const BoxDecoration(shape: BoxShape.circle),
+    this.eventDecoration = const BoxDecoration(shape: BoxShape.circle),
     this.rowDecoration = const BoxDecoration(),
     this.tableBorder = const TableBorder(),
   });

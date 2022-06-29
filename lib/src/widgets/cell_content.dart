@@ -23,6 +23,7 @@ class CellContent extends StatelessWidget {
   final bool isWeekend;
   final CalendarStyle calendarStyle;
   final CalendarBuilders calendarBuilders;
+  final bool hasEvents;
 
   const CellContent({
     Key? key,
@@ -41,6 +42,7 @@ class CellContent extends StatelessWidget {
     required this.isHoliday,
     required this.isWeekend,
     this.locale,
+    this.hasEvents = false,
   }) : super(key: key);
 
   @override
@@ -123,9 +125,14 @@ class CellContent extends StatelessWidget {
             duration: duration,
             margin: margin,
             padding: padding,
-            decoration: calendarStyle.holidayDecoration,
+            decoration: hasEvents
+                ? calendarStyle.eventDecoration
+                : calendarStyle.holidayDecoration,
             alignment: alignment,
-            child: Text(text, style: calendarStyle.holidayTextStyle),
+            child: Text(text,
+                style: hasEvents
+                    ? calendarStyle.eventTextStyle
+                    : calendarStyle.holidayTextStyle),
           );
     } else if (isWithinRange) {
       cell =
@@ -149,20 +156,35 @@ class CellContent extends StatelessWidget {
             child: Text(text, style: calendarStyle.outsideTextStyle),
           );
     } else {
+      final defaultDecoration = hasEvents
+          ? calendarStyle.eventDecoration
+          : calendarStyle.defaultDecoration;
+      final decoration = isWeekend
+          ? (hasEvents
+              ? calendarStyle.eventDecoration
+              : calendarStyle.weekendDecoration)
+          : defaultDecoration;
+
+      final defaultStyle = hasEvents
+          ? calendarStyle.eventTextStyle
+          : calendarStyle.defaultTextStyle;
+
+      final style = isWeekend
+          ? hasEvents
+              ? calendarStyle.eventTextStyle
+              : calendarStyle.weekendTextStyle
+          : defaultStyle;
+
       cell = calendarBuilders.defaultBuilder?.call(context, day, focusedDay) ??
           AnimatedContainer(
             duration: duration,
             margin: margin,
             padding: padding,
-            decoration: isWeekend
-                ? calendarStyle.weekendDecoration
-                : calendarStyle.defaultDecoration,
+            decoration: decoration,
             alignment: alignment,
             child: Text(
               text,
-              style: isWeekend
-                  ? calendarStyle.weekendTextStyle
-                  : calendarStyle.defaultTextStyle,
+              style: style,
             ),
           );
     }
